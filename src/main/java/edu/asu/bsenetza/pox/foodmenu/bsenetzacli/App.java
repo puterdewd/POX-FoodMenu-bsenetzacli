@@ -5,34 +5,34 @@
  */
 package edu.asu.bsenetza.pox.foodmenu.bsenetzacli;
 
-import com.sun.jersey.api.client.ClientResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author calliss
- */
 public class App {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(App.class);
-         
-    public static void main( String[] args )
-    {
-        LOG.info("Starting Greeting REST Client application");
-        
-        GreetingClient greetingClient = new GreetingClient();
-        
-        greetingClient.postTextGreeting("This is my greeting message");
-        
-        String responseMessage = greetingClient.getHtmlGreeting();
-        
-        System.out.println("The message is ");
-        System.out.println(responseMessage);
-        
-        LOG.info("Ending Dumb Client application");
-        
+
+    public static void main(String[] args) {
+        LOG.info("Starting REST Client application");
+
+        FoodMenuClient foodMenuClient = new FoodMenuClient("retrieve.xml");
+        String response = foodMenuClient.postMenuRequest();
+        LOG.info("\n" + response);
+
+        foodMenuClient = new FoodMenuClient("new.xml");
+        response = foodMenuClient.postMenuRequest();
+        LOG.info("\n" + response);
+
+        foodMenuClient = new FoodMenuClient("invalidretrieve.xml");
+        response = foodMenuClient.postMenuRequest();
+        LOG.info("\n" + response);
+
+        foodMenuClient = new FoodMenuClient("invalidnew.xml");
+        response = foodMenuClient.postMenuRequest();
+        LOG.info("\n" + response);
+
+        LOG.info("Ending REST Client application");
+
     }
-    
+
 }
